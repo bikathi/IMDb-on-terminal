@@ -4,7 +4,7 @@ package npc.martin.imdbonterminal;
  * Hello world!
  *
  */
-public class App 
+public class QuerryIMDB 
 {
     public static void main( String[] args )
     {
