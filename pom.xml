@@ -14,20 +14,112 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <junit.jupiter.version>5.4.0</junit.jupiter.version>
   </properties>
 
   <dependencies>
+    <!-- junit5 platform dependency- what runs your tests -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.jupiter.version}</version>
       <scope>test</scope>
+    </dependency>
+
+    <!-- junit5 jupiter API- what translates your tests to the platform -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <!-- picocli dependency -->
+    <dependency>
+        <groupId>info.picocli</groupId>
+        <artifactId>picocli</artifactId>
+        <version>4.6.3</version>
+    </dependency>
+    
+    <!-- unirest HTTP client dependency -->
+    <dependency>
+      <groupId>com.konghq</groupId>
+      <artifactId>unirest-java</artifactId>
+      <version>3.13.6</version>
+    </dependency>
+    
+    <!-- Jackson JSON parser dependency -->
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.13.2.2</version>
     </dependency>
   </dependencies>
 
   <build>
+    <plugins>
+        <!-- Plugin to create the fat jar -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>3.2.4</version>
+            <executions>
+              <!-- run the shade goal on package phase -->
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>shade</goal>
+                </goals>
+                <configuration>
+                  <transformers>
+                    <!-- add main class to manifest file -->
+                    <transfromer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                      <mainClass>npc.martin.imdbonterminal.QuerryIMDB</mainClass>
+                    </transfromer>
+                  </transformers>
+                </configuration>
+              </execution>
+            </executions>
+        </plugin>
+        
+        <!-- plugin to handle the slim jar -->
+        <plugin>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.0.2</version>
+            <configuration>
+              <archive>
+                <manifest>
+                  <addClasspath>true</addClasspath>
+                  <mainClass>npc.martin.imdbonterminal.QuerryIMDB</mainClass>
+                  <classpathPrefix>dependency-lib/</classpathPrefix>
+                </manifest>
+              </archive>
+            </configuration>
+        </plugin>
+        
+        <!-- plugin to handle dependencies for the slim jar -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>2.5.1</version>
+            <executions>
+              <execution>
+                <id>copy-dependencies</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>copy-dependencies</goal>
+                </goals>
+                <configuration>
+                  <!-- exclude junit, we need runtime dependencies only -->
+                  <includeScope>runtime</includeScope>
+                  <outputDirectory>${project.build.directory}/dependency-lib/</outputDirectory>
+                </configuration>
+              </execution>
+            </executions>
+        </plugin>
+    </plugins>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
