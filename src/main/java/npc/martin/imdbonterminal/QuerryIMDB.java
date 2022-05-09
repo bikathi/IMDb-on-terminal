@@ -16,6 +16,8 @@ public class QuerryIMDB implements Runnable {
             description = "Upto three movie terms to search for.")
     protected ArrayList<String> searchQuerries = new ArrayList<String>(3);
     
+    long start, end, executionTime; double timeInSeconds;
+    
     //save for search querries happens by default, and cannot be dissabled- saved as JSON.
     //the location to save the movie posters is in the user Downloads directories.
     
@@ -26,8 +28,12 @@ public class QuerryIMDB implements Runnable {
             if(!searchQuerries.isEmpty()) {
                 System.out.println("Can't use the -q and -qs flags together. Use the -h flag for help.");
             } else {
+                start = System.nanoTime();
+                System.out.println("Starting job...");
                 new ModelSingleRequest().makeRequest(searchQuerry);
-                //System.out.println("Making single requests...");
+                end = System.nanoTime();
+                timeInSeconds = (long) ((end - start) / 1000000000);
+                System.out.println("Job ended. Took " + timeInSeconds + " seconds.");
             }
         } else if(searchQuerry == null) {
             //2. Either the -q or the -qs flags should be used but not both at once
@@ -40,8 +46,12 @@ public class QuerryIMDB implements Runnable {
                 } else if(searchQuerries.size() == 0) {
                     System.out.println("The -qs flag needs at least one argument. Use -h for help.");
                 } else {
+                    start = System.nanoTime();
+                    System.out.println("Starting jobs...");
                     new ModelMultipleRequests().makeRequest(searchQuerries);
-                    //System.out.println("Making mutliple requests....");
+                    end = System.nanoTime();
+                    timeInSeconds = (long) ((end - start) / 1000000000);
+                    System.out.println("Jobs ended. Took " + timeInSeconds + " seconds.");
                 }
             }
         }
@@ -49,7 +59,7 @@ public class QuerryIMDB implements Runnable {
     
     public static void main( String[] args ) {
         //for testing
-        new CommandLine(new QuerryIMDB()).execute("-qs", "avatar", "transformers");
+        new CommandLine(new QuerryIMDB()).execute("-qs", "transformers", "fast and furious");
         
         
         //for deployment
