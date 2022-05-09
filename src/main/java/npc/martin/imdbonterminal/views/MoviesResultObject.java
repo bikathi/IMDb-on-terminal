@@ -42,7 +42,7 @@ class MovieMatches {
     private String l; //movie label (name) on IMDb servers
     private Integer rank; //movie rank on IMDb
     private String s; //movie starrings
-    private Integer y; //year the movie will be released
+    private Integer y = 0000; //year the movie will be released
 
     public MoviePoster getMoviePoster() {
         return i;
