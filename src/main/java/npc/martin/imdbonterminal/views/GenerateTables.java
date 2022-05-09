@@ -54,19 +54,22 @@ public class GenerateTables {
         
         //then download the posters
         while(it.hasNext()) {
-            System.out.println("Processing result: " + numberOfPosters + " ...");
             MovieMatches m = (MovieMatches) it.next();
+            
+            System.out.println("Processing result for: " + m.getMovieLabel() + " ...");
             
             //get the image URL
             String imageUrl = m.getMoviePoster().getImageUrl();
             //create a file name
             String fileName = m.getMovieLabel() + " poster";
+            //get/ the storage location
+            String storageLocation = userHome + File.separator + "Downloads" + File.separator + "Movie Posters";
                 
             try {
-                System.out.println("Downloading poster: " + numberOfPosters + " ...");
+                System.out.println("Downloading poster ...");
                 numberOfPosters--;
                 
-                this.getImageFromNet(imageUrl, fileName);
+                this.getImageFromNet(imageUrl, fileName, storageLocation);
             } catch (IOException ex) {
                 ex.printStackTrace();
             } 
@@ -85,10 +88,10 @@ public class GenerateTables {
         }
     }
     
-    public void getImageFromNet(String imageUrl, String fileName) throws IOException {
+    public void getImageFromNet(String imageUrl, String fileName, String location) throws IOException {
         URL url = new URL(imageUrl);
         InputStream is = url.openStream();
-        OutputStream os = new FileOutputStream(fileName);
+        OutputStream os = new FileOutputStream(location + File.separator + fileName);
         
         byte[] b = new byte[2040];
         int length;
