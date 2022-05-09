@@ -6,31 +6,50 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Command;
 import npc.martin.imdbonterminal.models.*;
 
-@Command(name = "", description = "Start the IMDB querry utility.", mixinStandardHelpOptions = true, 
+@Command(name = "", description = "Start searching for movies from IMDb.", mixinStandardHelpOptions = true, 
         version = "QuerryIMBb-1.0 BETA")
 public class QuerryIMDB implements Runnable {
-    @Option(names = { "-q", "--querry" }, paramLabel = "SEARCH QUERRY", 
-            description = "Provide the movie/ show phrase to querry.")
+    @Option(names = { "-q", "--querry" }, paramLabel = "SEARCH TERM", description = "The movie term you're searching for.")
     protected String searchQuerry;
     
-    @Option(names = { "-s", "--save" }, description = "Save your search querry and your results as JSON.")
-    protected Boolean save;
-    
-    @Option(names ={ "-m", "--multiple" }, description = "Use this flag to provide more than one search querries to the util.")
-    protected Boolean mult;
-    
-    @Option(names = {"-l", "--list"}, description = "List of querries you are searching for.", 
-            paramLabel = "QUERRY LIST", arity = "1...5")
+    @Option(names = { "-qs", "--querries" }, paramLabel = "SEARCH TERMS", arity = "1...3",
+            description = "Upto three movie terms to search for.")
     protected ArrayList<String> searchQuerries = new ArrayList<String>(3);
+    
+    //save for search querries happens by default, and cannot be dissabled- saved as JSON.
+    //the location to save the movie posters is in the user Downloads directories.
     
     @Override
     public void run() {
-        new ModelSingleRequest().makeRequest(searchQuerry);
+        if(searchQuerry != null) {
+            //1. You can't use the '-q' and '-qs' flags together
+            if(!searchQuerries.isEmpty()) {
+                System.out.println("Can't use the -q and -qs flags together. Use the -h flag for help.");
+            } else {
+                new ModelSingleRequest().makeRequest(searchQuerry);
+                //System.out.println("Making single requests...");
+            }
+        } else if(searchQuerry == null) {
+            //2. Either the -q or the -qs flags should be used but not both at once
+            if(searchQuerries.isEmpty()) {
+                System.out.println("Use either -q or -qs flags. Use the -h flag for help.");
+            } else if(!searchQuerries.isEmpty()) {
+                //3. The -qs flag cannot take more than three parameters 
+                if(searchQuerries.size() > 3) {
+                    System.out.println("The -qs flag takes a maximum of three arguments. Use -h for help.");
+                } else if(searchQuerries.size() == 0) {
+                    System.out.println("The -qs flag needs at least one argument. Use -h for help.");
+                } else {
+                    new ModelMultipleRequests().makeRequest(searchQuerries);
+                    //System.out.println("Making mutliple requests....");
+                }
+            }
+        }
     }
     
     public static void main( String[] args ) {
         //for testing
-        new CommandLine(new QuerryIMDB()).execute("-q", "transformers", "-g");
+        new CommandLine(new QuerryIMDB()).execute("-qs", "avatar", "transformers");
         
         
         //for deployment
