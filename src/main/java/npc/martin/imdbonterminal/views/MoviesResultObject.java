@@ -40,7 +40,7 @@ class MovieMatches {
 
     //and these are other instance variables of interest that a single match 'may' have
     private String l; //movie label (name) on IMDb servers
-    private Integer rank; //movie rank on IMDb
+    private Integer rank = 0000; //movie rank on IMDb
     private String s; //movie starrings
     private Integer y = 0000; //year the movie will be released
 
