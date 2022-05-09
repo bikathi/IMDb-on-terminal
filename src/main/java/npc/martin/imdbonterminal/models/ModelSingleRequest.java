@@ -1,5 +1,6 @@
 package npc.martin.imdbonterminal.models;
 
+import npc.martin.imdbonterminal.views.MoviesResultObject;
 import kong.unirest.Unirest;
 import npc.martin.imdbonterminal.views.GenerateTables;
 
@@ -13,6 +14,6 @@ public class ModelSingleRequest {
             .getBody();
         
         
-        new GenerateTables().generateGeneralTable(response);
+        new GenerateTables().generateGeneralTable(searchQuerry, response);
     }
 }

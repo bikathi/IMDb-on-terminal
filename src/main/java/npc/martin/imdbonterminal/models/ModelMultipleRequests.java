@@ -1,5 +1,6 @@
 package npc.martin.imdbonterminal.models;
 
+import npc.martin.imdbonterminal.views.MoviesResultObject;
 import java.util.List;
 import kong.unirest.Unirest;
 import npc.martin.imdbonterminal.views.GenerateTables;
@@ -15,7 +16,7 @@ public class ModelMultipleRequests {
                     .asObject(MoviesResultObject.class)
                     .getBody();
             
-            new GenerateTables().generateGeneralTable(response);
+            new GenerateTables().generateGeneralTable(querry, response);
         }
     }
 }
