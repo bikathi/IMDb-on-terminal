@@ -1,12 +1,9 @@
 package npc.martin.imdbonterminal.views;
 
 import npc.martin.imdbonterminal.QuerryIMDB;
-import npc.martin.imdbonterminal.models.*;
 import com.github.freva.asciitable.AsciiTable;
 import com.github.freva.asciitable.Column;
 import java.util.Arrays;
-import java.util.List;
-
 
 public class GenerateTables extends QuerryIMDB {
     protected Character[] borderStyle = AsciiTable.FANCY_ASCII;
@@ -21,13 +18,13 @@ public class GenerateTables extends QuerryIMDB {
         //print the number of found matches
         System.out.println("Number of related results: " + numberOfSuccessfullMatches);
         
+        //general overview of results
+        System.out.println("General results overview: ");
         
-        
-        //print out the general table
         System.out.println(AsciiTable.getTable(borderStyle, result.getMovieMatches(), Arrays.asList(
-                new Column().header("Movie Name").with(),
-                new Column().header("Rank On IMDb").with(),
-                new Column().header("Starring Actors").with()
+                new Column().header("Movie Name").with(movie -> movie.getMovieLabel()),
+                new Column().header("Rank On IMDb").with(movie -> Integer.toString(movie.getIMDbMovieRank())),
+                new Column().header("Starring Actors").with(movie -> movie.getMovieStarrings())
         )));
         
         //then call the method that generates the detailed table
@@ -35,12 +32,14 @@ public class GenerateTables extends QuerryIMDB {
     }
     
     public void generateDetailedTable(MoviesResultObject result) { 
-        System.out.println(AsciiTable.getTable(borderStyle, result.getMovieMatches(), Arrays.asList(
-                new Column().header("Movie Name").with(),
-                new Column().header("IMDb Rank").with(),
-                new Column().header("Starring Actors").with(),
-                new Column().header("Movie Poster").with(),
-                new Column().header("Year of Release").with()
-        )));
+//        System.out.println(AsciiTable.getTable(borderStyle, result.getMovieMatches(), Arrays.asList(
+//                new Column().header("Movie Name").with(),
+//                new Column().header("Rank on IMDb").with(),
+//                new Column().header("Starring Actors").with(),
+//                new Column().header("Movie Poster").with(),
+//                new Column().header("Year of Release").with()
+//        )));
+
+          System.out.println("Hello World ):");
     }
 }
