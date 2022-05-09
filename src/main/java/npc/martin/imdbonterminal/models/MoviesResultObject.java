@@ -1,4 +1,4 @@
-package npc.martin.imdbonterminal;
+package npc.martin.imdbonterminal.models;
 
 import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
