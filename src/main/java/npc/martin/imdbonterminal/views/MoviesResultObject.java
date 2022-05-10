@@ -36,12 +36,14 @@ public class MoviesResultObject {
 //this is the class representing a single match result- a movie match
 class MovieMatches {
     //It has an image object- which we refer to by the MoviePoster class
-    private MoviePoster i; //the poster for the movie
+    //the URL here is a default image that will be downloaded if the resulting JSON object has no
+    //URL to it's own image
+    private MoviePoster i = new MoviePoster("https://bitsofco.de/content/images/2018/12/broken-1.png");
 
     //and these are other instance variables of interest that a single match 'may' have
-    private String l; //movie label (name) on IMDb servers
+    private String l = "Not Available"; //movie label (name) on IMDb servers
     private Integer rank = 0000; //movie rank on IMDb
-    private String s; //movie starrings
+    private String s = "Not Available"; //movie starrings
     private Integer y = 0000; //year the movie will be released
 
     public MoviePoster getMoviePoster() {
@@ -85,6 +87,14 @@ class MoviePoster {
 
     public String getImageUrl() {
         return imageUrl;
+    }
+    
+    public MoviePoster () {
+        //default constructor
+    }
+    
+    public MoviePoster (String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     @Override
