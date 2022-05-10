@@ -6,7 +6,7 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Command;
 import npc.martin.imdbonterminal.models.*;
 
-@Command(name = "", description = "Start searching for movies from IMDb.", mixinStandardHelpOptions = true, 
+@Command(name = "", description = "Searching for movies from IMDb.", mixinStandardHelpOptions = true, 
         version = "QuerryIMBb-1.0 BETA")
 public class QuerryIMDB implements Runnable {
     @Option(names = { "-q", "--querry" }, paramLabel = "SEARCH TERM", description = "The movie term you're searching for.")
@@ -43,7 +43,7 @@ public class QuerryIMDB implements Runnable {
             if(searchQuerries.isEmpty()) {
                 System.out.println("Use either -q or -qs flags. Use the -h flag for help.");
             } else if(!searchQuerries.isEmpty()) {
-                //3. The -qs flag cannot take more than three parameters 
+                //3. The -qs flag cannot take more than three parameters or none
                 if(searchQuerries.size() > 3) {
                     System.out.println("The -qs flag takes a maximum of three arguments. Use -h for help.");
                 } else if(searchQuerries.size() == 0) {
@@ -62,11 +62,11 @@ public class QuerryIMDB implements Runnable {
     
     public static void main( String[] args ) {
         //for testing
-        new CommandLine(new QuerryIMDB()).execute("-qs", "texas chainsaw", "the unholy", "-g");
+        //new CommandLine(new QuerryIMDB()).execute("-qs", "fast and furious", "God of war");
         
         
         //for deployment
-//        int exitCode = new CommandLine(new QuerryIMDB()).execute(args);
-//        System.exit(exitCode);
+        int exitCode = new CommandLine(new QuerryIMDB()).execute(args);
+        System.exit(exitCode);
     }
 }
