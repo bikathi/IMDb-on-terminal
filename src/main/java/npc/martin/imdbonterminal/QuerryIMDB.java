@@ -7,7 +7,7 @@ import picocli.CommandLine.Command;
 import npc.martin.imdbonterminal.models.*;
 
 @Command(name = "gevie", description = "Searching for movies from IMDb.", mixinStandardHelpOptions = true, 
-        version = "QuerryIMBb-1.0 BETA")
+        version = "QuerryIMBb-1.0 STABLE")
 public class QuerryIMDB implements Runnable {
     @Option(names = { "-q", "--querry" }, paramLabel = "SEARCH TERM", description = "The movie term you're searching for.")
     protected String searchQuerry;
