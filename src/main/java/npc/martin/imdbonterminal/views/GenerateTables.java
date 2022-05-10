@@ -2,11 +2,13 @@ package npc.martin.imdbonterminal.views;
 
 import com.github.freva.asciitable.AsciiTable;
 import com.github.freva.asciitable.Column;
+import com.github.freva.asciitable.HorizontalAlign;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -15,7 +17,7 @@ import java.util.List;
 public class GenerateTables {
     protected Character[] borderStyle = AsciiTable.FANCY_ASCII;
     
-    public void generateGeneralTable(String q, MoviesResultObject result) {
+    public void generateGeneralTable(String q, MoviesResultObject result, Boolean getPosters) {
         
         Integer numberOfSuccessfullMatches = result.getMovieMatches().size();
         
@@ -29,15 +31,22 @@ public class GenerateTables {
         System.out.println("Results overview: ");
         
         System.out.println(AsciiTable.getTable(borderStyle, result.getMovieMatches(), Arrays.asList(
-                new Column().header("Movie Name").with(movie -> movie.getMovieLabel()),
-                new Column().header("Rank On IMDb").with(movie -> Integer.toString(movie.getIMDbMovieRank())),
-                new Column().header("Starring Actors").with(movie -> movie.getMovieStarrings()),
-                new Column().header("Movie Poster").with(movie -> movie.getMoviePoster().getImageUrl()),
-                new Column().header("Year of Release").with(movie -> Integer.toString(movie.getYearOfRelease()))
+                new Column().header("Movie Name").dataAlign(HorizontalAlign.LEFT).maxColumnWidth(30).with(movie -> movie.getMovieLabel()),
+                new Column().header("Rank On IMDb").dataAlign(HorizontalAlign.CENTER).with(movie -> Integer.toString(movie.getIMDbMovieRank())),
+                new Column().header("Starring Actors").dataAlign(HorizontalAlign.LEFT).with(movie -> movie.getMovieStarrings()),
+                new Column().header("Movie Poster").dataAlign(HorizontalAlign.LEFT).maxColumnWidth(40).with(movie -> movie.getMoviePoster().getImageUrl()),
+                new Column().header("Year of Release").dataAlign(HorizontalAlign.LEFT).with(movie -> Integer.toString(movie.getYearOfRelease()))
         )));
         
-        List<MovieMatches> movieMatches = result.getMovieMatches();
-        this.downloadMoviePosters(movieMatches);
+        
+        if(getPosters == true) {
+            List<MovieMatches> movieMatches = result.getMovieMatches();
+            this.downloadMoviePosters(movieMatches);
+            System.out.println("Done... Posters should be downloaded into /User/Downloads/MoviePosters.");
+        } else {
+            System.out.println("Exiting without auto-downloading of posters... ");
+        }
+        
   
     }
     
