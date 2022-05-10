@@ -5,7 +5,7 @@ import kong.unirest.Unirest;
 import npc.martin.imdbonterminal.views.GenerateTables;
 
 public class ModelSingleRequest {
-    public void makeRequest(String searchQuerry) {
+    public void makeRequest(String searchQuerry, Boolean getPosters) {
         String getRequestURL = "https://online-movie-database.p.rapidapi.com/auto-complete?q=" + searchQuerry;
         MoviesResultObject response = Unirest.get(getRequestURL)
 	    .header("X-RapidAPI-Host", "online-movie-database.p.rapidapi.com")
@@ -14,6 +14,6 @@ public class ModelSingleRequest {
             .getBody();
         
         
-        new GenerateTables().generateGeneralTable(searchQuerry, response);
+        new GenerateTables().generateGeneralTable(searchQuerry, response, getPosters);
     }
 }

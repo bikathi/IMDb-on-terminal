@@ -7,7 +7,7 @@ import npc.martin.imdbonterminal.views.GenerateTables;
 
 
 public class ModelMultipleRequests {
-    public void makeRequest(List<String> querries) {
+    public void makeRequest(List<String> querries, Boolean getPosters) {
         for (String querry : querries) {
             String getRequestURL = "https://online-movie-database.p.rapidapi.com/auto-complete?q=" + querry;
             MoviesResultObject response = Unirest.get(getRequestURL)
@@ -16,7 +16,7 @@ public class ModelMultipleRequests {
                     .asObject(MoviesResultObject.class)
                     .getBody();
             
-            new GenerateTables().generateGeneralTable(querry, response);
+            new GenerateTables().generateGeneralTable(querry, response, getPosters);
         }
     }
 }
