@@ -33,7 +33,7 @@ public class GenerateTables {
         System.out.println(AsciiTable.getTable(borderStyle, result.getMovieMatches(), Arrays.asList(
                 new Column().header("Movie Name").dataAlign(HorizontalAlign.LEFT).maxColumnWidth(30).with(movie -> movie.getMovieLabel()),
                 new Column().header("Rank On IMDb").dataAlign(HorizontalAlign.CENTER).with(movie -> Integer.toString(movie.getIMDbMovieRank())),
-                new Column().header("Starring Actors").dataAlign(HorizontalAlign.LEFT).with(movie -> movie.getMovieStarrings()),
+                new Column().header("Starring Actors").dataAlign(HorizontalAlign.LEFT).maxColumnWidth(20).with(movie -> movie.getMovieStarrings()),
                 new Column().header("Movie Poster").dataAlign(HorizontalAlign.LEFT).maxColumnWidth(40).with(movie -> movie.getMoviePoster().getImageUrl()),
                 new Column().header("Year of Release").dataAlign(HorizontalAlign.LEFT).with(movie -> Integer.toString(movie.getYearOfRelease()))
         )));
@@ -87,7 +87,7 @@ public class GenerateTables {
     
     public void makeDownloadsFolder(String os, String home) {
         if(os.equals("Linux") || os.equals("MacOS") || os.equals("Windows")) {
-            //navigate to the downloads dir
+            //navigate into the downloads dir
             File file = new File(home + File.separator + "Downloads" + File.separator + "Movie Posters");
             
             //make the Movie Posters folder there
