@@ -18,7 +18,7 @@ public class ModelMultipleRequests {
             String getRequestURL = "https://online-movie-database.p.rapidapi.com/auto-complete?q=" + querry;
             MoviesResultObject response = Unirest.get(getRequestURL)
                     .header("X-RapidAPI-Host", "online-movie-database.p.rapidapi.com")
-                    .header("X-RapidAPI-Key", "663ca5a111msh7c4791d9dff1181p132acdjsn58c849b9b499")
+                    .header("X-RapidAPI-Key", "YOUR API KEY HERE")
                     .asObject(MoviesResultObject.class)
                     .getBody();
             
