@@ -16,6 +16,9 @@ public class QuerryIMDB implements Runnable {
             description = "Upto three movie terms to search for.")
     protected ArrayList<String> searchQuerries = new ArrayList<String>(3);
     
+    @Option(names = { "-g", "--get-posters" }, description = "Authorize auto-downloading of available movie posters.")
+    protected Boolean getPosters = false; //by default is false to save on bandwidth
+    
     long start, end, executionTime; double timeInSeconds;
     
     //save for search querries happens by default, and cannot be dissabled- saved as JSON.
@@ -30,7 +33,7 @@ public class QuerryIMDB implements Runnable {
             } else {
                 start = System.nanoTime();
                 System.out.println("Starting job...");
-                new ModelSingleRequest().makeRequest(searchQuerry);
+                new ModelSingleRequest().makeRequest(searchQuerry, getPosters);
                 end = System.nanoTime();
                 timeInSeconds = (long) ((end - start) / 1000000000);
                 System.out.println("Job ended. Took " + timeInSeconds + " seconds.");
@@ -48,7 +51,7 @@ public class QuerryIMDB implements Runnable {
                 } else {
                     start = System.nanoTime();
                     System.out.println("Starting jobs...");
-                    new ModelMultipleRequests().makeRequest(searchQuerries);
+                    new ModelMultipleRequests().makeRequest(searchQuerries, getPosters);
                     end = System.nanoTime();
                     timeInSeconds = (long) ((end - start) / 1000000000);
                     System.out.println("Jobs ended. Took " + timeInSeconds + " seconds.");
@@ -59,7 +62,7 @@ public class QuerryIMDB implements Runnable {
     
     public static void main( String[] args ) {
         //for testing
-        new CommandLine(new QuerryIMDB()).execute("-qs", "transformers", "fast and furious");
+        new CommandLine(new QuerryIMDB()).execute("-qs", "texas chainsaw", "the unholy", "-g");
         
         
         //for deployment
