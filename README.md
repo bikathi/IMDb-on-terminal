@@ -46,7 +46,7 @@ Searching for movies from IMDb.
                              Upto three movie terms to search for.
   -V, --version              Print version information and exit.
 ```
-10. Now that we have confirmation it works, let's install it in a more use-case-friendly way. Proceed to procedure B.
+10. Now that we have confirmation it works, let's "install" it in a more use-case-friendly way. Proceed to procedure B.
 
 ### PROCEDURE B
 For those who downloaded the `IMDbOnTerminal-1.0-STABLE.jar`, as well as those who have come from the end of procedure A, proceed from here.
@@ -73,7 +73,8 @@ Type `gevie -qs "Maleficent" -g`.
 ![Download Flag Example](https://github.com/LunarkX/IMDb-on-terminal/blob/master/gallery/image-download-example.png)
 Once the job exits, open your `/Downloads` folder. There should be a `Movie Posters` folder with the posters that were available for download.
 ![Image of Download Poster with Movie Posters Folder Shown](https://github.com/LunarkX/IMDb-on-terminal/blob/master/gallery/image-of-target-folder.png)
-![Image of Maleficent Posters](https://github.com/LunarkX/IMDb-on-terminal/blob/master/gallery/maleficent-posters-example.png)
+Continuation of the above ↑ image
+![Image of Malificent Posters](https://github.com/LunarkX/IMDb-on-terminal/blob/master/gallery/maleficent-posters-example.png)
 
 ## SAVING SEARCH QUERRIES
 By default (cannot be changed unless you edit the code yourself), each of your search querries along with the results is saved in a hidden folder named `.IMDbOnTerminal` in `/home/.IMDbOnTerminal`, as a file with the name of your search querry and the results being inside the file.
@@ -81,4 +82,4 @@ By default (cannot be changed unless you edit the code yourself), each of your s
 ## KNOWN ISSUES
 1. If the terminal window you're viewing this from is too small, the resulting table can be distorted.
 2. If your internet speed is slow, a single search querry can take a long time to complete.
-3. If the resulting movie suggestion has no poster, a default image willbe downloaded.
+3. If the resulting movie suggestion has no poster, a default image will be downloaded.
