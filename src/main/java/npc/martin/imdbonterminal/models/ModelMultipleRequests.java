@@ -1,16 +1,9 @@
 package npc.martin.imdbonterminal.models;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import npc.martin.imdbonterminal.views.MoviesResultObject;
 import java.util.List;
 import kong.unirest.Unirest;
 import npc.martin.imdbonterminal.views.GenerateTables;
-
 
 public class ModelMultipleRequests extends SaveJobs{
     public void makeRequest(List<String> querries, Boolean getPosters) {

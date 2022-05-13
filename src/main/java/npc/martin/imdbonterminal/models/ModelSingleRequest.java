@@ -1,11 +1,5 @@
 package npc.martin.imdbonterminal.models;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.Path;
 import npc.martin.imdbonterminal.views.MoviesResultObject;
 import kong.unirest.Unirest;
 import npc.martin.imdbonterminal.views.GenerateTables;
