@@ -12,7 +12,7 @@ import kong.unirest.Unirest;
 import npc.martin.imdbonterminal.views.GenerateTables;
 
 
-public class ModelMultipleRequests {
+public class ModelMultipleRequests extends SaveJobs{
     public void makeRequest(List<String> querries, Boolean getPosters) {
         for (String querry : querries) {
             String getRequestURL = "https://online-movie-database.p.rapidapi.com/auto-complete?q=" + querry;
@@ -27,27 +27,6 @@ public class ModelMultipleRequests {
             System.out.println("Initiating search querry save job... ");
             this.saveToFile(response, querry);
             System.out.println("Exiting search querry save job...");
-        }
-    }
-    
-    public void saveToFile(MoviesResultObject response, String filePrefix) {
-        String outputString = response.toString();
-        String fileNamePrefix = filePrefix;
-        
-        //get the user home
-        String home = System.getProperty("user.home");
-        
-        //make the storage directory in a hidden folder in /user/home
-        File file = new File(home + File.separator + ".IMDbforTerminal");
-        file.mkdir();
-        
-        //get path to the storage 
-        Path path = Paths.get(home + File.separator + ".IMDbforTerminal" + File.separator + fileNamePrefix + ".txt");
-        
-        try {
-            Files.writeString(path, outputString, StandardCharsets.UTF_8);
-        } catch(IOException ex) {
-            System.out.println("Invalid Path");
         }
     }
 }
