@@ -8,7 +8,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -31,11 +30,25 @@ public class GenerateTables {
         System.out.println("Results overview: ");
         
         System.out.println(AsciiTable.getTable(borderStyle, result.getMovieMatches(), Arrays.asList(
-                new Column().header("Movie Name").dataAlign(HorizontalAlign.LEFT).maxColumnWidth(30).with(movie -> movie.getMovieLabel()),
-                new Column().header("Rank On IMDb").dataAlign(HorizontalAlign.CENTER).with(movie -> Integer.toString(movie.getIMDbMovieRank())),
-                new Column().header("Starring Actors").dataAlign(HorizontalAlign.LEFT).maxColumnWidth(20).with(movie -> movie.getMovieStarrings()),
-                new Column().header("Movie Poster").dataAlign(HorizontalAlign.LEFT).maxColumnWidth(40).with(movie -> movie.getMoviePoster().getImageUrl()),
-                new Column().header("Year of Release").dataAlign(HorizontalAlign.LEFT).with(movie -> Integer.toString(movie.getYearOfRelease()))
+                //column 1
+                new Column().header("Movie Name").dataAlign(HorizontalAlign.LEFT)
+                        .maxColumnWidth(30).with(movie -> movie.getMovieLabel()),
+                
+                //column 2
+                new Column().header("Rank On IMDb").dataAlign(HorizontalAlign.CENTER)
+                        .with(movie -> Integer.toString(movie.getIMDbMovieRank())),
+                
+                //column 3
+                new Column().header("Starring Actors").dataAlign(HorizontalAlign.LEFT)
+                        .maxColumnWidth(20).with(movie -> movie.getMovieStarrings()),
+                
+                //column 4
+                new Column().header("Movie Poster").dataAlign(HorizontalAlign.LEFT)
+                        .maxColumnWidth(40).with(movie -> movie.getMoviePoster().getImageUrl()),
+                
+                //column 5
+                new Column().header("Year of Release").dataAlign(HorizontalAlign.LEFT)
+                        .with(movie -> Integer.toString(movie.getYearOfRelease()))
         )));
         
         
