@@ -62,11 +62,11 @@ public class QuerryIMDB implements Runnable {
     
     public static void main( String[] args ) {
         //for testing
-        //new CommandLine(new QuerryIMDB()).execute("-qs", "fast and furious", "God of war");
+        new CommandLine(new QuerryIMDB()).execute("-q", "cars 2");
         
         
         //for deployment
-        int exitCode = new CommandLine(new QuerryIMDB()).execute(args);
-        System.exit(exitCode);
+        //int exitCode = new CommandLine(new QuerryIMDB()).execute(args);
+        //System.exit(exitCode);
     }
 }
