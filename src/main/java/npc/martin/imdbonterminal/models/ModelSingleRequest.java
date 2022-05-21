@@ -9,7 +9,7 @@ public class ModelSingleRequest extends SaveJobs {
         String getRequestURL = "https://online-movie-database.p.rapidapi.com/auto-complete?q=" + searchQuerry;
         MoviesResultObject response = Unirest.get(getRequestURL)
 	    .header("X-RapidAPI-Host", "online-movie-database.p.rapidapi.com")
-	    .header("X-RapidAPI-Key", "YOUR API KEY HERE")
+	    .header("X-RapidAPI-Key", "YOUR RAPID API KEY HERE")
 	    .asObject(MoviesResultObject.class)
             .getBody();
         

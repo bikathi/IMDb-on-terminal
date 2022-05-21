@@ -38,7 +38,7 @@ class MovieMatches {
     //It has an image object- which we refer to by the MoviePoster class
     //the URL here is a default image that will be downloaded if the resulting JSON object has no
     //URL to it's own image
-    private MoviePoster i = new MoviePoster("REPLACE WITH THE GITHUB URL TO PROTECT AGAINST 404s");
+    private MoviePoster i = new MoviePoster("https://drukasia.com/images/stripes/umaparo.jpg");
 
     //and these are other instance variables of interest that a single match 'may' have
     private String l = "Not Available"; //movie label (name) on IMDb servers
